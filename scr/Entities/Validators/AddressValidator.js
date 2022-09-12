@@ -13,7 +13,7 @@ module.exports.AddressValidator = class AddressValidator {
         else if (address.addressLine.length > 100) {
             result.push(constants.addressLineLongError);
         }
-        if (address.addressLine2.length > 100) {
+        if (address.addressLine2?.length > 100) {
             result.push(constants.addressLine2LongError);
         }
         if (!(address.addressType === "Shipping" || address.addressType === "Billing")) {
