@@ -1,3 +1,5 @@
+const { constants } = require("../Constants");
+
 module.exports.CustomerValidator = class CustomerValidator {
     constructor() {}
     Validate(customer) {
@@ -9,31 +11,28 @@ module.exports.CustomerValidator = class CustomerValidator {
         if (!customer) return result;
 
         if (customer.firstName.length > 50) {
-            result.push('first name cant have more than 50 letters');
+            result.push(constants.firstNameLongError);
         }
         if(customer.lastName == null){
-            result.push('last name cant be null');
+            result.push(constants.lastNameIsEmptyError);
         }
         else if(customer.lastName.length > 50){
-            result.push('last name cant have more than 50 letters')
+            result.push(constants.lastNameLenghtError);
         }
-        if (!customer.addresses) {
-            results.push(`Should be at least one address`)
+        if(customer.addresses?.length == 0){
+            result.push(constants.addressesListIsEmptyError);
         }
-        else if(customer.addresses.length == 0){
-            result.push('address list cant be null');
+        if(!customer.phone?.match(phoneRegex)){
+            result.push(constants.invalidPhoneNumderError);
         }
-        if(!customer.phone.match(phoneRegex)){
-            result.push('invalid phone number')
-        }
-        if(!customer.email.match(emailRegex)){
-            result.push('invalid email')
+        if(!customer.email?.match(emailRegex)){
+            result.push(constants.invalidEmailError);
         }
         if(customer.notes == null){
-            result.push('notes should have at list one note')
+            result.push(constants.notesIsEmpty);
         }
         if(customer.lastPurchaseDate < lowestDate){
-            result.push('date cannot be lower than 2020-1-1')
+            result.push(constants.lastPurchaseDateIsLow);
         }
         return result;
     }
